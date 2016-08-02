@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import App from './App';
+import HomePage from '../layout/HomePage/HomePage.js';
 
 /**
  * Component is exported for conditional usage in Root.js
@@ -15,7 +15,7 @@ export default class Root extends Component {
        * calls in component hierarchy below.
        */
       <Provider store={store}>
-        <App />
+        <HomePage/>
       </Provider>
     );
   }
