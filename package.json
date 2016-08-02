@@ -1,7 +1,7 @@
 {
-  "name": "generator-simple-redux",
+  "name": "Smarthome Client",
   "version": "1.0.0",
-  "description": "My simple redux application.",
+  "description": "",
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
@@ -12,10 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tsaiDavid/simple-redux-boilerplate.git"
+    "url": "https://gitlab.com/vanhtuan0409/smarthomeclient.git"
   },
   "license": "MIT",
-  "homepage": "https://github.com/tsaiDavid/simple-redux-boilerplate",
+  "homepage": "https://gitlab.com/vanhtuan0409/smarthomeclient",
   "devDependencies": {
     "autoprefixer": "^6.3.1",
     "babel-core": "^6.3.15",
@@ -45,9 +45,9 @@
     "webpack-hot-middleware": "^2.6.0"
   },
   "dependencies": {
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
-    "react-redux": "^4.1.1",
-    "redux-thunk": "^1.0.3"
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "redux-thunk": "^2.1.0"
   }
 }
