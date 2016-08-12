@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { Router, Route } from 'react-router';
 import HomePage from '../layout/HomePage/HomePage.js';
 
 /**
@@ -9,9 +8,7 @@ import HomePage from '../layout/HomePage/HomePage.js';
  */
 export default class Root extends Component {
   render() {
-    const { store } = this.props;
-    const history = syncHistoryWithStore(browserHistory, store);
-
+    const { store, history } = this.props;
     return (
       /**
        * Provider is a component provided to us by the 'react-redux' bindings that
