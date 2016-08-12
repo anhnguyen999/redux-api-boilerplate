@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import counter from './counter';
-
+import { routerReducer } from 'react-router-redux';
 /**
  * combineReducers is important to understand. As your app might grow in size
  * and complexity, you will likely begin to split your reducers into separate
@@ -15,7 +15,8 @@ import counter from './counter';
  * More info: http://rackt.org/redux/docs/api/combineReducers.html
  */
 const rootReducer = combineReducers({
-  counter, // you might be used to: counter: counter,
+  counter,
+  routing: routerReducer,
 });
 
 export default rootReducer;
