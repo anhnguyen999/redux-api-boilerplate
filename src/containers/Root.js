@@ -7,6 +7,11 @@ import HomePage from '../layout/HomePage/HomePage.js';
  * Component is exported for conditional usage in Root.js
  */
 export default class Root extends Component {
+  static propTypes = {
+    store: React.PropTypes.object,
+    history: React.PropTypes.object,
+  }
+
   render() {
     const { store, history } = this.props;
     return (
