@@ -3,5 +3,10 @@
  * within your app. Combined with the DevTools/logger, you can see how state and subsequently
  * your UI is being affected.
  */
-export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
-export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
+import keyMirror from 'keyMirror';
+
+export default keyMirror({
+  GET_DEVICES_REQUEST: null,
+  GET_DEVICES_SUCCESS: null,
+  GET_DEVICES_FAILURE: null,
+});
