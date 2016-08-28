@@ -1,14 +1,14 @@
 import Immutable from 'immutable';
 
-function devices(state = Immutable.Map({}), action) {
+function posts(state = Immutable.Map({}), action) {
   const { payload } = action;
-  if (payload && payload.entities && payload.entities.device) {
-    return state.merge(payload.entities.device);
+  if (payload && payload.entities && payload.entities.post) {
+    return state.merge(payload.entities.post);
   }
 }
 
 export default function entities(state = {}, action) {
   return {
-    devices: devices(state.devices, action),
+    posts: posts(state.posts, action),
   };
 }

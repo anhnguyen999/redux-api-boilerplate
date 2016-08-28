@@ -6,7 +6,10 @@
 import keyMirror from 'keyMirror';
 
 export default keyMirror({
-  GET_DEVICES_REQUEST: null,
-  GET_DEVICES_SUCCESS: null,
-  GET_DEVICES_FAILURE: null,
+  SELECT_SUBREDDIT: null,
+  INVALIDATE_SUBREDDIT: null,
+
+  GET_POSTS_REQUEST: null,
+  GET_POSTS_SUCCESS: null,
+  GET_POSTS_FAILURE: null,
 });

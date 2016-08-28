@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import entities from './entities.js';
 import { routerReducer } from 'react-router-redux';
-
+import { selectedSubreddit, postsBySubreddit } from './reddit.js';
 /**
  * combineReducers is important to understand. As your app might grow in size
  * and complexity, you will likely begin to split your reducers into separate
@@ -15,8 +15,11 @@ import { routerReducer } from 'react-router-redux';
  *
  * More info: http://rackt.org/redux/docs/api/combineReducers.html
  */
+
 const rootReducer = combineReducers({
   entities,
+  selectedSubreddit,
+  postsBySubreddit,
   routing: routerReducer,
 });
 

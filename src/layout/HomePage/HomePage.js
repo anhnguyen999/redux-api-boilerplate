@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import DeviceList from '../../containers/DeviceList.js';
+import Reddit from '../../containers/Reddit.js';
 
 export default class HomePage extends Component {
   render() {
     return (
-      <DeviceList/>
+      <Reddit/>
     );
   }
 }

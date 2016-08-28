@@ -1,3 +1,3 @@
 import { Schema } from 'normalizr';
 
-export const DeviceSchema = new Schema('device');
+export const PostSchema = new Schema('post');
