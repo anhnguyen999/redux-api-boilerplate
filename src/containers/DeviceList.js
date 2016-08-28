@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DeviceList from '../components/DeviceList.js';
 import { getDevices } from '../actions/DeviceActions.js';
-import { getAllDevices } from '../selector/device.js';
+import { getAllDevices } from '../selectors/device.js';
 
 class DeviceListContainer extends Component {
   static propTypes = {
