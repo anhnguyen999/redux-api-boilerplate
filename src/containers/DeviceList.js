@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DeviceList from '../components/DeviceList.js';
 import { getDevices } from '../actions/DeviceActions.js';
+import { getAllDevices } from '../selector/device.js';
 
 class DeviceListContainer extends Component {
   static propTypes = {
@@ -28,7 +29,7 @@ class DeviceListContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    devices: state.devices
+    devices: getAllDevices(state),
   };
 }
 

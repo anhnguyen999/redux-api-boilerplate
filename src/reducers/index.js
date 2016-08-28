@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import devices from './device.js';
+import entities from './entities.js';
 import { routerReducer } from 'react-router-redux';
 /**
  * combineReducers is important to understand. As your app might grow in size
@@ -15,7 +15,7 @@ import { routerReducer } from 'react-router-redux';
  * More info: http://rackt.org/redux/docs/api/combineReducers.html
  */
 const rootReducer = combineReducers({
-  devices,
+  entities,
   routing: routerReducer,
 });
 

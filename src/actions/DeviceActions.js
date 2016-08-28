@@ -1,5 +1,7 @@
 import Constant from '../constants/constant.js';
-import { CALL_API } from 'redux-api-middleware';
+import { CALL_API, getJSON } from 'redux-api-middleware';
+import { DeviceSchema } from '../schema/entities.js';
+import { normalize, arrayOf } from 'normalizr';
 
 export function getDevices() {
   return {
@@ -8,7 +10,12 @@ export function getDevices() {
       method: 'GET',
       types: [
         Constant.ActionTypes.GET_DEVICES_REQUEST,
-        Constant.ActionTypes.GET_DEVICES_SUCCESS,
+        {
+          type: Constant.ActionTypes.GET_DEVICES_SUCCESS,
+          payload: (action, state, res) => (
+            getJSON(res).then(json => normalize(json, arrayOf(DeviceSchema)))
+          )
+        },
         Constant.ActionTypes.GET_DEVICES_FAILURE,
       ]
     }
