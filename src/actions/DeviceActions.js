@@ -6,7 +6,7 @@ import { normalize, arrayOf } from 'normalizr';
 export function getDevices() {
   return {
     [CALL_API]: {
-      endpoint: 'http://localhost:8080/api/devices',
+      endpoint: '/api/devices',
       method: 'GET',
       types: [
         Constant.ActionTypes.GET_DEVICES_REQUEST,
