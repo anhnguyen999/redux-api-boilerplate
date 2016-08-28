@@ -12,10 +12,9 @@ export function getDevices() {
         Constant.ActionTypes.GET_DEVICES_REQUEST,
         {
           type: Constant.ActionTypes.GET_DEVICES_SUCCESS,
-          payload: (action, state, res) => {
-            return getJSON(res)
-              .then(json => normalize(json, arrayOf(DeviceSchema)));
-          }
+          payload: (action, state, res) => (
+            getJSON(res).then(json => normalize(json, arrayOf(DeviceSchema)))
+          )
         },
         Constant.ActionTypes.GET_DEVICES_FAILURE,
       ]
