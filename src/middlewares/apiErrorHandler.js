@@ -1,11 +1,12 @@
-import { RequestError, ApiError } from 'redux-api-middleware';
+import { ApiError, InternalError, RequestError } from 'redux-api-middleware';
 
 const apiErrorHandler = store => next => action => {
   // Check if dispatched action is an Error from API request
-  const isErrorPayload = action.payload instanceof RequestError
-    || action.payload instanceof ApiError;
+  const isError = action.payload instanceof RequestError
+    || action.payload instanceof ApiError
+    || action.payload instanceof InternalError;
 
-  if (!action.error || !isErrorPayload) {
+  if (!action.error || !isError) {
     return next(action);
   }
 
