@@ -38,6 +38,9 @@ export function posts(state = {
 export function postsBySubreddit(state = {}, action) {
   switch (action.type) {
     case Constant.ActionTypes.INVALIDATE_SUBREDDIT:
+      return Object.assign({}, state, {
+        [action.subreddit]: posts(state[action.subreddit], action)
+      });
     case Constant.ActionTypes.GET_POSTS_REQUEST:
     case Constant.ActionTypes.GET_POSTS_SUCCESS:
       return Object.assign({}, state, {

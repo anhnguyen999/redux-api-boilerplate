@@ -4,6 +4,8 @@ import {
   selectSubreddit, invalidateSubreddit, fetchPostsIfNeeded
 } from '../actions/redditActions.js';
 import { getSelectedPosts, isFetchingSelectedPosts } from '../selectors/post.js';
+import Picker from '../components/Picker.js';
+import Posts from '../components/Posts.js';
 
 class RedditApp extends Component {
   static propTypes = {
@@ -50,10 +52,34 @@ class RedditApp extends Component {
   }
 
   render() {
-    console.log(this.props.posts);
-    console.log(this.props.isFetching);
+    const { selectedSubreddit, posts, isFetching } = this.props
     return (
-      <p>tuanvuong</p>
+      <div>
+        <Picker
+          value={selectedSubreddit}
+          onChange={this.handleChange}
+          options={[ 'reactjs', 'frontend' ]}
+        />
+        <p>
+          {!isFetching &&
+            <a href='#'
+               onClick={this.handleRefreshClick}>
+              Refresh
+            </a>
+          }
+        </p>
+        {isFetching && posts.length === 0 &&
+          <h2>Loading...</h2>
+        }
+        {!isFetching && posts.length === 0 &&
+          <h2>Empty.</h2>
+        }
+        {posts.length > 0 &&
+          <div style={{ opacity: isFetching ? 0.5 : 1 }}>
+            <Posts posts={posts} />
+          </div>
+        }
+      </div>
     );
   }
 }
