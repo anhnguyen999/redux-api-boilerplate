@@ -1,7 +1,7 @@
 {
-  "name": "smarthomeclient",
+  "name": "redux-api-boilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "An api-focused boilerplate for redux",
   "scripts": {
     "clean": "rimraf dist",
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
@@ -12,10 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/vanhtuan0409/smarthomeclient.git"
+    "url": "https://github.com/vanhtuan0409/redux-api-boilerplate"
   },
   "license": "MIT",
-  "homepage": "https://gitlab.com/vanhtuan0409/smarthomeclient",
+  "homepage": "https://github.com/vanhtuan0409/redux-api-boilerplate",
   "devDependencies": {
     "autoprefixer": "^6.3.1",
     "babel-core": "^6.3.15",
