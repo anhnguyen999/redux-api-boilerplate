@@ -36,15 +36,11 @@ function fetchPosts(subreddit) {
               return normalized;
             })
           ),
-          meta: () => {
-            return { subreddit };
-          }
+          meta: () => ({ subreddit }),
         },
         {
           type: Constant.ActionTypes.GET_POSTS_FAILURE,
-          meta: () => {
-            return { subreddit };
-          }
+          meta: () => ({ subreddit }),
         }
       ]
     }
