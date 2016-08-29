@@ -52,7 +52,7 @@ function fetchPosts(subreddit) {
 }
 
 function shouldFetchPosts(state, subreddit) {
-  const posts = state.postsBySubreddit.get(subreddit);
+  const posts = state.postsBySubreddit[subreddit];
   if (!posts) {
     return true;
   }
