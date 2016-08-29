@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Router, Route } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import App from './App.js';
-import HomePage from '../layout/HomePage/HomePage.js';
+
+import Reddit from '../containers/Reddit.js';
+import FooView from '../layout/FooView.js';
+import BarView from '../layout/BarView.js';
 
 /**
  * Component is exported for conditional usage in Root.js
@@ -24,7 +27,9 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App}>
-            <Route path="home" component={HomePage}/>
+            <IndexRoute component={Reddit}/>
+            <Route path="foo" component={FooView}/>
+            <Route path="bar" component={BarView}/>
           </Route>
         </Router>
       </Provider>

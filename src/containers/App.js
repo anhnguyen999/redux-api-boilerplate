@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
-import HomePage from '../layout/HomePage/HomePage.js';
 
 export default class App extends Component {
+  static propTypes = {
+    children: React.PropTypes.object,
+  }
   render() {
     return (
-      <HomePage/>
-    );
+      <div>
+        <div className="menu">
+          <a href="/" className="menu-item">Home</a>
+          <a href="/foo" className="menu-item">Foo</a>
+          <a href="/bar" className="menu-item">Bar</a>
+        </div>
+        {this.props.children}
+      </div>
+    )
   }
 }

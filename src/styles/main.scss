@@ -13,3 +13,13 @@ body {
   font-family: 'Raleway', sans-serif;
   padding: 10px;
 }
+
+.menu {
+  border-bottom: 1px solid $accent-gray;
+}
+
+.menu-item {
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+}
