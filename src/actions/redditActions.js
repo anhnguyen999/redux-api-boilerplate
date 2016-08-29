@@ -17,7 +17,7 @@ export function invalidateSubreddit(subreddit) {
   };
 }
 
-function fetchPosts(subreddit) {
+export function fetchPosts(subreddit) {
   return {
     [CALL_API]: {
       endpoint: `http://www.reddit.com/r/${subreddit}.json`,
@@ -42,26 +42,18 @@ function fetchPosts(subreddit) {
           type: Constant.ActionTypes.GET_POSTS_FAILURE,
           meta: () => ({ subreddit }),
         }
-      ]
-    }
-  };
-}
-
-function shouldFetchPosts(state, subreddit) {
-  const posts = state.postsBySubreddit[subreddit];
-  if (!posts) {
-    return true;
-  }
-  if (posts.isFetching) {
-    return false;
-  }
-  return posts.didInvalidate;
-}
-
-export function fetchPostsIfNeeded(subreddit) {
-  return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), subreddit)) {
-      return dispatch(fetchPosts(subreddit));
+      ],
+      bailout: state => {
+        // Should we prevent a api call or not
+        const posts = state.postsBySubreddit[subreddit];
+        if (!posts) {
+          return false;
+        }
+        if (posts.isFetching) {
+          return true;
+        }
+        return !posts.didInvalidate;
+      }
     }
   };
 }

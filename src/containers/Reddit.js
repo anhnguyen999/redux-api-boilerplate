@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  selectSubreddit, invalidateSubreddit, fetchPostsIfNeeded
+  selectSubreddit, invalidateSubreddit, fetchPosts
 } from '../actions/redditActions.js';
 import { getSelectedPosts, isFetchingSelectedPosts } from '../selectors/post.js';
 import Picker from '../components/Picker.js';
@@ -14,7 +14,7 @@ class RedditApp extends Component {
     // Action
     selectSubreddit: React.PropTypes.func.isRequired,
     invalidateSubreddit: React.PropTypes.func.isRequired,
-    fetchPostsIfNeeded: React.PropTypes.func.isRequired,
+    fetchPosts: React.PropTypes.func.isRequired,
 
     // Post data
     posts: React.PropTypes.array.isRequired,
@@ -28,14 +28,14 @@ class RedditApp extends Component {
   }
 
   componentDidMount() {
-   const { selectedSubreddit, fetchPostsIfNeeded } = this.props
-   fetchPostsIfNeeded(selectedSubreddit)
+   const { selectedSubreddit, fetchPosts } = this.props
+   fetchPosts(selectedSubreddit)
   }
 
   componentWillReceiveProps(nextProps) {
    if (nextProps.selectedSubreddit !== this.props.selectedSubreddit) {
-     const { selectedSubreddit, fetchPostsIfNeeded } = nextProps
-     fetchPostsIfNeeded(selectedSubreddit)
+     const { selectedSubreddit, fetchPosts } = nextProps
+     fetchPosts(selectedSubreddit)
    }
   }
 
@@ -46,9 +46,9 @@ class RedditApp extends Component {
   handleRefreshClick(e) {
    e.preventDefault()
 
-   const { selectedSubreddit, invalidateSubreddit, fetchPostsIfNeeded } = this.props
+   const { selectedSubreddit, invalidateSubreddit, fetchPosts } = this.props
    invalidateSubreddit(selectedSubreddit)
-   fetchPostsIfNeeded(selectedSubreddit)
+   fetchPosts(selectedSubreddit)
   }
 
   render() {
@@ -98,7 +98,7 @@ function mapDispatchToProps(dispatch) {
   return {
     selectSubreddit: subreddit => dispatch(selectSubreddit(subreddit)),
     invalidateSubreddit: subreddit => dispatch(invalidateSubreddit(subreddit)),
-    fetchPostsIfNeeded: subreddit => dispatch(fetchPostsIfNeeded(subreddit)),
+    fetchPosts: subreddit => dispatch(fetchPosts(subreddit)),
   };
 }
 
