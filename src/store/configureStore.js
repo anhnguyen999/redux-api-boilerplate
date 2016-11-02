@@ -4,8 +4,11 @@ import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 import apiErrorHandler from '../middlewares/apiErrorHandler.js';
 
+const composeEnhancer = process.env.NODE_ENV === 'development' ?
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose :
+  compose;
 
-const finalCreateStore = compose(
+const finalCreateStore = composeEnhancer(
   applyMiddleware(thunk, apiMiddleware, apiErrorHandler)
 )(createStore);
 
