@@ -31,6 +31,13 @@ export function fetchPosts(subreddit) {
       const normalized = normalize(posts, arrayOf(PostSchema));
       return normalized;
     },
+    shouldRequest: state => {
+      const posts = state.postsBySubreddit[subreddit];
+      if (!posts || posts.items.length === 0) {
+        return true;
+      }
+      return posts.didInvalidate;
+    },
     meta: { subreddit },
     types: GET_POSTS
   };

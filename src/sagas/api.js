@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { take, put, fork, cancel } from 'redux-saga/effects';
+import { take, put, fork, cancel, select } from 'redux-saga/effects';
 
 export const CALL_API = 'CALL_API';
 
@@ -24,12 +24,17 @@ function checkStatus(response) {
   return response;
 }
 
-export function* requestAPI(options) {
+export function* requestAPI(action) {
   const {
-    endpoint, method, body,
-    credentials, headers, transform, meta,
+    endpoint, method, body, credentials,
+    headers, transform, shouldRequest, meta,
     types: { REQUEST: request, SUCCESS: success, FAILURE: failure }
-  } = options;
+  } = action;
+
+  const state = yield select();
+  if (shouldRequest && !shouldRequest(state)) {
+    return;
+  }
 
   if (request) {
     yield put({
