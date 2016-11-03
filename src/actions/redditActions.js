@@ -1,59 +1,26 @@
-import Constant from '../constants/constant.js';
-import { CALL_API, getJSON } from 'redux-api-middleware';
-import { PostSchema } from '../schemas/entities.js';
-import { normalize, arrayOf } from 'normalizr';
+import createRequestType from '../utils/createRequestType.js';
+
+export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT';
+export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT';
+export const GET_POSTS = createRequestType('GET_POST');
 
 export function selectSubreddit(subreddit) {
   return {
-    type: Constant.ActionTypes.SELECT_SUBREDDIT,
+    type: SELECT_SUBREDDIT,
     subreddit
   };
 }
 
 export function invalidateSubreddit(subreddit) {
   return {
-    type: Constant.ActionTypes.INVALIDATE_SUBREDDIT,
+    type: INVALIDATE_SUBREDDIT,
     subreddit
   };
 }
 
 export function fetchPosts(subreddit) {
   return {
-    [CALL_API]: {
-      endpoint: `http://www.reddit.com/r/${subreddit}.json`,
-      method: 'GET',
-      types: [
-        {
-          type: Constant.ActionTypes.GET_POSTS_REQUEST,
-          meta: { subreddit },
-        },
-        {
-          type: Constant.ActionTypes.GET_POSTS_SUCCESS,
-          payload: (action, state, res) => (
-            getJSON(res).then(json => {
-              const posts = json.data.children.map(child => child.data);
-              const normalized = normalize(posts, arrayOf(PostSchema));
-              return normalized;
-            })
-          ),
-          meta: () => ({ subreddit }),
-        },
-        {
-          type: Constant.ActionTypes.GET_POSTS_FAILURE,
-          meta: () => ({ subreddit }),
-        }
-      ],
-      bailout: state => {
-        // Should we prevent a api call or not
-        const posts = state.postsBySubreddit[subreddit];
-        if (!posts) {
-          return false;
-        }
-        if (posts.isFetching) {
-          return true;
-        }
-        return !posts.didInvalidate;
-      }
-    }
+    type: GET_POSTS.REQUEST,
+    meta: { subreddit }
   };
 }
