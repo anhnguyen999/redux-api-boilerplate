@@ -1,7 +1,9 @@
-import { takeLatest } from 'redux-saga';
+import { fork } from 'redux-saga/effects';
 import { GET_POSTS } from '../actions/redditActions.js';
-import { getPosts } from './api/posts.js';
+import watchAPI from './api.js';
 
 export default function* root() {
-  yield takeLatest(GET_POSTS.SAGA, getPosts)
+  yield [
+    fork(watchAPI)
+  ]
 }

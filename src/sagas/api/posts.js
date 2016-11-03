@@ -17,7 +17,7 @@ export function* getPosts(action) {
         return normalized;
       },
       meta: { subreddit },
-      types: [GET_POSTS.SUCCESS, GET_POSTS.FAILURE]
+      types: GET_POSTS
     })
   ]
 }

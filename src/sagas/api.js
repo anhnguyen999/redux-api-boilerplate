@@ -1,5 +1,19 @@
 import fetch from 'isomorphic-fetch';
-import { put } from 'redux-saga/effects';
+import { take, put, fork, cancel } from 'redux-saga/effects';
+
+export const CALL_API = 'CALL_API';
+
+export default function* watchAPI() {
+  const apiMap = {}
+  while (true) {
+    const action = yield take(CALL_API);
+    const currentTask = apiMap[action.types.REQUEST];
+    if (!action.keepTask && currentTask && currentTask.isRunning()) {
+      yield cancel(currentTask);
+    }
+    apiMap[action.types.REQUEST] = yield fork(requestAPI, action)
+  }
+}
 
 function checkStatus(response) {
   if (response.status < 200 || response.status >= 300) {
@@ -10,12 +24,19 @@ function checkStatus(response) {
   return response;
 }
 
-export default function* request(options) {
+export function* requestAPI(options) {
   const {
     endpoint, method, body,
-    credentials, headers, transform,
-    meta, types: [success, failure]
+    credentials, headers, transform, meta,
+    types: { REQUEST: request, SUCCESS: success, FAILURE: failure }
   } = options;
+
+  if (request) {
+    yield put({
+      type: request,
+      meta
+    })
+  }
 
   const result = yield fetch(endpoint, { method, body, credentials, headers })
     .then(checkStatus)
@@ -43,7 +64,8 @@ export default function* request(options) {
     if (result instanceof Error && failure) {
       yield put({
         type: failure,
-        error: result.message
+        error: result.message,
+        meta
       })
     }
 
