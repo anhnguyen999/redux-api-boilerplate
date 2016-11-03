@@ -43,9 +43,9 @@ export default function* request(options) {
     if (result instanceof Error && failure) {
       yield put({
         type: failure,
-        error: result
+        error: result.message
       })
     }
 
-    return result;
+    return result
 };

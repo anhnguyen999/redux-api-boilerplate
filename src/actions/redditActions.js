@@ -20,7 +20,7 @@ export function invalidateSubreddit(subreddit) {
 
 export function fetchPosts(subreddit) {
   return {
-    type: GET_POSTS.REQUEST,
-    meta: { subreddit }
+    type: GET_POSTS.SAGA,
+    subreddit
   };
 }
