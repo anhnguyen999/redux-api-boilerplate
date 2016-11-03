@@ -1,11 +1,11 @@
-import createRequestType from '../utils/createRequestType.js';
+import { createObjectType } from '../utils/createRequestType.js';
 import { PostSchema } from '../schemas/entities.js';
 import { arrayOf, normalize } from 'normalizr';
 import { CALL_API } from '../sagas/api.js';
 
 export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT';
 export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT';
-export const GET_POSTS = createRequestType('GET_POST');
+export const GET_POSTS = createObjectType('GET_POST');
 
 export function selectSubreddit(subreddit) {
   return {
@@ -39,6 +39,6 @@ export function fetchPosts(subreddit) {
       return posts.didInvalidate;
     },
     meta: { subreddit },
-    types: GET_POSTS
+    actionTypes: GET_POSTS
   };
 }

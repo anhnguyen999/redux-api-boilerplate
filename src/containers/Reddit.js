@@ -30,7 +30,6 @@ class RedditApp extends Component {
   componentDidMount() {
    const { selectedSubreddit, fetchPosts } = this.props
    fetchPosts(selectedSubreddit)
-   fetchPosts(selectedSubreddit)
   }
 
   componentWillReceiveProps(nextProps) {

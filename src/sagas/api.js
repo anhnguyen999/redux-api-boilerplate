@@ -7,11 +7,11 @@ export default function* watchAPI() {
   const apiMap = {}
   while (true) {
     const action = yield take(CALL_API);
-    const currentTask = apiMap[action.types.REQUEST];
+    const currentTask = apiMap[action.actionTypes.REQUEST];
     if (!action.keepTask && currentTask && currentTask.isRunning()) {
       yield cancel(currentTask);
     }
-    apiMap[action.types.REQUEST] = yield fork(requestAPI, action)
+    apiMap[action.actionTypes.REQUEST] = yield fork(requestAPI, action)
   }
 }
 
@@ -28,7 +28,7 @@ export function* requestAPI(action) {
   const {
     endpoint, method, body, credentials,
     headers, transform, shouldRequest, meta,
-    types: { REQUEST: request, SUCCESS: success, FAILURE: failure }
+    actionTypes: { REQUEST: request, SUCCESS: success, FAILURE: failure }
   } = action;
 
   const state = yield select();
