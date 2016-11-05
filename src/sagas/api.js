@@ -3,7 +3,7 @@ import { take, put, fork, cancel, select } from 'redux-saga/effects';
 
 export const CALL_API = 'CALL_API';
 
-export default function* watchAPI() {
+export function* watchLatestAPI() {
   const apiMap = {}
   while (true) {
     const action = yield take(CALL_API);
@@ -11,23 +11,14 @@ export default function* watchAPI() {
     if (!action.keepTask && currentTask && currentTask.isRunning()) {
       yield cancel(currentTask);
     }
-    apiMap[action.actionTypes.REQUEST] = yield fork(requestAPI, action)
+    apiMap[action.actionTypes.REQUEST] = yield fork(apiWorker, action)
   }
 }
 
-function checkStatus(response) {
-  if (response.status < 200 || response.status >= 300) {
-    const error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-  }
-  return response;
-}
-
-export function* requestAPI(action) {
+export function* apiWorker(action) {
   const {
-    endpoint, method, body, credentials,
-    headers, transform, shouldRequest, meta,
+    endpoint, method, body, headers,
+    transform, shouldRequest, meta,
     actionTypes: { REQUEST: request, SUCCESS: success, FAILURE: failure }
   } = action;
 
@@ -36,43 +27,50 @@ export function* requestAPI(action) {
     return;
   }
 
-  if (request) {
+  yield put({
+    type: request,
+    meta
+  })
+
+  const response = yield apiClient({ endpoint, method, body, headers });
+
+  if (!response.ok) {
     yield put({
-      type: request,
+      type: failure,
+      payload: {
+        status: response.status,
+        statusText: response.statusText,
+        error: response.body,
+      },
+      error: true,
       meta
-    })
+    });
+    return;
   }
 
-  const result = yield fetch(endpoint, { method, body, credentials, headers })
-    .then(checkStatus)
-    .then(response => response.json())
-    .then(data => {
-      let finalData = data;
-      if (transform) {
-        finalData = transform(data);
-      }
+  const dataTransform = transform || (data => data);
+  const transformed = dataTransform(response);
+  yield put({
+    type: success,
+    payload: transformed,
+    meta
+  })
 
-      return finalData;
-    })
-    .catch(error => {
-      return error;
-    });
-
-    if (!(result instanceof Error) && success) {
-      yield put({
-        type: success,
-        payload: result,
-        meta
-      })
-    }
-
-    if (result instanceof Error && failure) {
-      yield put({
-        type: failure,
-        error: result.message,
-        meta
-      })
-    }
-
-    return result
+  return transformed;
 };
+
+function* apiClient({
+  endpoint, method,
+  headers, body,
+}) {
+  const response = yield fetch(endpoint, { method, body, headers });
+  const data = yield response.json();
+  const result = {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers,
+    ok: response.ok,
+    body: data,
+  };
+  return result; 
+}

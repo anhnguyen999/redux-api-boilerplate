@@ -26,8 +26,8 @@ export function fetchPosts(subreddit) {
     type: CALL_API,
     endpoint: `http://www.reddit.com/r/${subreddit}.json`,
     method: 'GET',
-    transform: json => {
-      const posts = json.data.children.map(child => child.data);
+    transform: response => {
+      const posts = response.body.data.children.map(child => child.data);
       const normalized = normalize(posts, arrayOf(PostSchema));
       return normalized;
     },
