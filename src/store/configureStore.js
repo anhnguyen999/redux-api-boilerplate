@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers';
-import createSagaMiddleware from 'redux-saga';
+import logicMiddleware from '../logic/index.js';
 
 // REDUX_DEVTOOLS EXTENSION in dev enviroment
 const composeEnhancer = process.env.NODE_ENV === 'development' ?
@@ -8,15 +8,13 @@ const composeEnhancer = process.env.NODE_ENV === 'development' ?
   compose;
 
 // Config middleware
-const sagaMiddleware = createSagaMiddleware();
 const finalCreateStore = composeEnhancer(
   applyMiddleware(
-    sagaMiddleware
+    logicMiddleware
   )
 )(createStore);
 
 export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
-  store.runSaga = sagaMiddleware.run;
   return store;
 };

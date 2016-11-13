@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import rootSaga from './sagas/index.js';
 
 /**
  * Import the stylesheet you want used! Here we just reference
@@ -18,7 +17,6 @@ import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 const store = configureStore();
-store.runSaga(rootSaga);
 const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
