@@ -1,3 +1,4 @@
+import Immutable from 'immutable';
 import {
   SELECT_SUBREDDIT,
   INVALIDATE_SUBREDDIT,
@@ -13,40 +14,34 @@ export function selectedSubreddit(state = 'reactjs', action) {
   }
 }
 
-export function posts(state = {
+const postsInitalState = Immutable.fromJS({
   isFetching: false,
   didInvalidate: false,
   items: []
-}, action) {
+});
+export function posts(state = postsInitalState, action) {
   switch (action.type) {
     case INVALIDATE_SUBREDDIT:
-      return Object.assign({}, state, {
-        didInvalidate: true
-      });
+      return state.merge({ didInvalidate: true });
     case GET_POSTS.REQUEST:
-      return Object.assign({}, state, {
-        isFetching: true,
-        didInvalidate: false
-      });
+      return state.merge({ isFetching: true, didInvalidate: false });
     case GET_POSTS.SUCCESS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        didInvalidate: false,
-        items: action.payload.result,
-      });
+      const { result } = action.payload;
+      return state.merge({ isFetching: false, didInvalidate: false, items: result });
     default:
       return state;
   }
 }
 
-export function postsBySubreddit(state = {}, action) {
+const mapInitialState = Immutable.fromJS({});
+export function postsBySubreddit(state = mapInitialState, action) {
   switch (action.type) {
     case INVALIDATE_SUBREDDIT:
     case GET_POSTS.REQUEST:
     case GET_POSTS.SUCCESS:
-      return Object.assign({}, state, {
-        [action.meta.subreddit]: posts(state[action.meta.subreddit], action)
-      });
+      const { subreddit } = action.meta;
+      const updatedSubreddit = posts(state.get(subreddit), action);
+      return state.set(subreddit, updatedSubreddit);
     default:
       return state;
   }

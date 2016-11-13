@@ -45,6 +45,7 @@
     "webpack-hot-middleware": "^2.6.0"
   },
   "dependencies": {
+    "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "keymirror": "^0.1.1",
     "normalizr": "^2.2.1",

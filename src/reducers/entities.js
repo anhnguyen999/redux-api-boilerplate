@@ -1,13 +1,10 @@
-function posts(state = {}, action) {
+import Immutable from 'immutable';
+
+const entitiesInitialState = Immutable.fromJS({});
+export default function entities(state = entitiesInitialState, action) {
   const { payload } = action;
-  if (payload && payload.entities && payload.entities.post) {
-    return Object.assign({}, state, payload.entities.post);
+  if (payload && payload.entities) {
+    return state.mergeDeep(payload.entities);
   }
   return state;
-}
-
-export default function entities(state = {}, action) {
-  return {
-    posts: posts(state.posts, action),
-  };
 }

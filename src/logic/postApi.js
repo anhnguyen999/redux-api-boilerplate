@@ -3,10 +3,11 @@ import fetch from 'isomorphic-fetch';
 import { normalize, arrayOf } from 'normalizr';
 import { GET_POSTS } from '../actions/redditActions.js';
 import { PostSchema } from '../schemas/entities.js';
+import { getPostBySubreddit } from '../selectors/post.js';
 
 const shouldFetchPost = (state, subreddit) => {
-  const posts = state.postsBySubreddit[subreddit];
-  if (!posts || posts.items.length === 0) {
+  const posts = getPostBySubreddit(state, subreddit);
+  if (posts.length === 0) {
     return true;
   }
   return posts.didInvalidate;
