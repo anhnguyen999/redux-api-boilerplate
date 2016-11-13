@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   selectSubreddit, invalidateSubreddit, fetchPosts
 } from '../actions/redditActions.js';
-import { getPostBySubreddit, isFetchingSubreddit } from '../selectors/post.js';
+import { getPostBySubreddit, getSubredditMeta } from '../selectors/post.js';
 import Picker from '../components/Picker.js';
 import Posts from '../components/Posts.js';
 
@@ -90,7 +90,7 @@ function mapStateToProps(state) {
   return {
     selectedSubreddit,
     posts: getPostBySubreddit(state, selectedSubreddit),
-    isFetching: isFetchingSubreddit(state, selectedSubreddit),
+    isFetching: getSubredditMeta(state, selectedSubreddit).isFetching,
   };
 }
 

@@ -7,9 +7,10 @@ export function getPostBySubreddit(state, subredditId) {
   return items.map(postId => entities.get('post').get(postId)).toJS();
 }
 
-export function isFetchingSubreddit(state, subredditId) {
+export function getSubredditMeta(state, subredditId) {
   const { postsBySubreddit } = state;
   const subreddit = postsBySubreddit.get(subredditId);
   const isFetching = subreddit ? subreddit.get('isFetching') : false;
-  return isFetching;
+  const didInvalidate = subreddit ? subreddit.get('didInvalidate') : false;
+  return { isFetching, didInvalidate };
 }
