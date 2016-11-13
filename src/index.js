@@ -13,11 +13,11 @@ import './styles/main.scss';
  */
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 ReactDOM.render(
   <Root store={store} history={history}/>,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 export default class App extends Component {
   static propTypes = {
@@ -8,9 +9,9 @@ export default class App extends Component {
     return (
       <div>
         <div className="menu">
-          <a href="/" className="menu-item">Home</a>
-          <a href="/foo" className="menu-item">Foo</a>
-          <a href="/bar" className="menu-item">Bar</a>
+          <Link to="/" className="menu-item">Home</Link>
+          <Link to="/foo" className="menu-item">Foo</Link>
+          <Link to="/bar" className="menu-item">Bar</Link>
         </div>
         {this.props.children}
       </div>
