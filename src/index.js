@@ -15,11 +15,15 @@ import configureStore from './store/configureStore';
 import Root from './containers/Root';
 import { hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import Immutable from 'immutable';
 
-const store = configureStore();
-const history = syncHistoryWithStore(hashHistory, store);
+const initalState = Immutable.fromJS({});
+const store = configureStore(initalState);
+const history = syncHistoryWithStore(hashHistory, store, {
+  selectLocationState: state => state.get('routing').toObject()
+});
 
 ReactDOM.render(
-  <Root store={store} history={history}/>,
+  <Root store={store} history={history} />,
   document.getElementById('root')
 );

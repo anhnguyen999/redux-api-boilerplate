@@ -3,11 +3,11 @@ import fetch from 'isomorphic-fetch';
 import { normalize, arrayOf } from 'normalizr';
 import { GET_POSTS } from '../actions/redditActions.js';
 import { PostSchema } from '../schemas/entities.js';
-import { getPostBySubreddit, getSubredditMeta } from '../selectors/post.js';
+import { selectPostBySubreddit, selectPostBySubredditMeta } from '../redux/postBySubreddit.js';
 
 const shouldFetchPost = (state, subreddit) => {
-  const posts = getPostBySubreddit(state, subreddit);
-  const meta = getSubredditMeta(state, subreddit);
+  const posts = selectPostBySubreddit(state, subreddit);
+  const meta = selectPostBySubredditMeta(state, subreddit);
   if (posts.length === 0) {
     return true;
   }

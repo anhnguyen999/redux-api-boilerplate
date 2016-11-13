@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
   selectSubreddit, invalidateSubreddit, fetchPosts
 } from '../actions/redditActions.js';
-import { getPostBySubreddit, getSubredditMeta } from '../selectors/post.js';
+import { selectPostBySubreddit, selectPostBySubredditMeta } from '../redux/postBySubreddit.js';
+import { selectSelectedSubreddit } from '../redux/selectedSubreddit.js';
 import Picker from '../components/Picker.js';
 import Posts from '../components/Posts.js';
 
@@ -85,12 +86,11 @@ class RedditApp extends Component {
 }
 
 function mapStateToProps(state) {
-  const { selectedSubreddit } = state
-
+  const selectedSubreddit = selectSelectedSubreddit(state);
   return {
     selectedSubreddit,
-    posts: getPostBySubreddit(state, selectedSubreddit),
-    isFetching: getSubredditMeta(state, selectedSubreddit).isFetching,
+    posts: selectPostBySubreddit(state, selectedSubreddit),
+    isFetching: selectPostBySubredditMeta(state, selectedSubreddit).isFetching,
   };
 }
 

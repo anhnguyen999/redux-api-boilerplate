@@ -54,6 +54,7 @@
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.5",
     "redux": "^3.6.0",
+    "redux-immutable": "^3.0.8",
     "redux-logic": "^0.9.3",
     "rxjs": "^5.0.0-rc.2"
   }

@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from '../reducers';
+import rootReducer from '../redux/index.js';
 import logicMiddleware from '../logic/index.js';
 
 // REDUX_DEVTOOLS EXTENSION in dev enviroment
