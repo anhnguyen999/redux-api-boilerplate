@@ -9,10 +9,6 @@ export default function entities(state = entitiesInitialState, action) {
   return state;
 }
 
-export function selectEntities(state) {
-  return state.get('entities').toJS();
-}
-
-export function selectPost(state, postId) {
+export function getPost(state, postId) {
   return state.get('entities').get('post').get(postId).toJS() || {};
 }

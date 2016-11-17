@@ -1,10 +1,10 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {
-  selectSubreddit, invalidateSubreddit, fetchPosts
+  actionSelectSubreddit, actionInvalidateSubreddit, actionFetchPosts
 } from '../actions/redditActions';
-import { selectPostBySubreddit, selectPostBySubredditMeta } from '../redux/postBySubreddit';
-import { selectSelectedSubreddit } from '../redux/selectedSubreddit';
+import { getPostBySubreddit, getPostBySubredditMeta } from '../redux/postBySubreddit';
+import { getSelectedSubreddit } from '../redux/selectedSubreddit';
 import Picker from '../components/Picker';
 import Posts from '../components/Posts';
 
@@ -13,9 +13,9 @@ class RedditApp extends PureComponent {
     selectedSubreddit: PropTypes.string.isRequired,
 
     // Action
-    selectSubredditAction: PropTypes.func.isRequired,
-    invalidateSubredditAction: PropTypes.func.isRequired,
-    fetchPostsAction: PropTypes.func.isRequired,
+    selectSubreddit: PropTypes.func.isRequired,
+    invalidateSubreddit: PropTypes.func.isRequired,
+    fetchPosts: PropTypes.func.isRequired,
 
     // Post data
     posts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -24,40 +24,35 @@ class RedditApp extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
     this.handleRefreshClick = this.handleRefreshClick.bind(this);
   }
 
   componentDidMount() {
-    const { selectedSubreddit, fetchPostsAction } = this.props;
-    fetchPostsAction(selectedSubreddit);
+    const { selectedSubreddit, fetchPosts } = this.props;
+    fetchPosts(selectedSubreddit);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedSubreddit !== this.props.selectedSubreddit) {
-      const { selectedSubreddit, fetchPostsAction } = nextProps;
-      fetchPostsAction(selectedSubreddit);
+      const { selectedSubreddit, fetchPosts } = nextProps;
+      fetchPosts(selectedSubreddit);
     }
-  }
-
-  handleChange(nextSubreddit) {
-    this.props.selectSubredditAction(nextSubreddit);
   }
 
   handleRefreshClick(e) {
     e.preventDefault();
-    const { selectedSubreddit, invalidateSubredditAction, fetchPostsAction } = this.props;
-    invalidateSubredditAction(selectedSubreddit);
-    fetchPostsAction(selectedSubreddit);
+    const { selectedSubreddit, invalidateSubreddit, fetchPosts } = this.props;
+    invalidateSubreddit(selectedSubreddit);
+    fetchPosts(selectedSubreddit);
   }
 
   render() {
-    const { selectedSubreddit, posts, isFetching } = this.props;
+    const { selectedSubreddit, posts, isFetching, selectSubreddit } = this.props;
     return (
       <div>
         <Picker
           value={selectedSubreddit}
-          onChange={this.handleChange}
+          onChange={selectSubreddit}
           options={['reactjs', 'frontend']}
         />
         <p>
@@ -84,19 +79,19 @@ class RedditApp extends PureComponent {
 }
 
 function mapStateToProps(state) {
-  const selectedSubreddit = selectSelectedSubreddit(state);
+  const selectedSubreddit = getSelectedSubreddit(state);
   return {
     selectedSubreddit,
-    posts: selectPostBySubreddit(state, selectedSubreddit),
-    isFetching: selectPostBySubredditMeta(state, selectedSubreddit).isFetching,
+    posts: getPostBySubreddit(state, selectedSubreddit),
+    isFetching: getPostBySubredditMeta(state, selectedSubreddit).isFetching,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectSubredditAction: subreddit => dispatch(selectSubreddit(subreddit)),
-    invalidateSubredditAction: subreddit => dispatch(invalidateSubreddit(subreddit)),
-    fetchPostsAction: subreddit => dispatch(fetchPosts(subreddit)),
+    selectSubreddit: subreddit => dispatch(actionSelectSubreddit(subreddit)),
+    invalidateSubreddit: subreddit => dispatch(actionInvalidateSubreddit(subreddit)),
+    fetchPosts: subreddit => dispatch(actionFetchPosts(subreddit)),
   };
 }
 

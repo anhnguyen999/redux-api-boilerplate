@@ -1,6 +1,19 @@
 import Immutable, { List } from 'immutable';
 import { INVALIDATE_SUBREDDIT, GET_POSTS } from '../actions/redditActions';
-import { selectPost } from './entities';
+import { getPost } from './entities';
+
+export function getPostBySubreddit(state, subredditId) {
+  const subreddit = state.get('postsBySubreddit').get(subredditId);
+  const items = subreddit ? subreddit.get('items') : List([]);
+  return items.map(postId => getPost(state, postId)).toJS();
+}
+
+export function getPostBySubredditMeta(state, subredditId) {
+  const subreddit = state.get('postsBySubreddit').get(subredditId);
+  const isFetching = subreddit ? subreddit.get('isFetching') : false;
+  const didInvalidate = subreddit ? subreddit.get('didInvalidate') : false;
+  return { isFetching, didInvalidate };
+}
 
 const postsInitalState = Immutable.fromJS({
   isFetching: false,
@@ -37,21 +50,4 @@ export default function postsBySubreddit(state = mapInitialState, action) {
     default:
       return state;
   }
-}
-
-export function selectSubreddit(state, subredditId) {
-  return state.get('postsBySubreddit').get(subredditId).toJS();
-}
-
-export function selectPostBySubreddit(state, subredditId) {
-  const subreddit = state.get('postsBySubreddit').get(subredditId);
-  const items = subreddit ? subreddit.get('items') : List([]);
-  return items.map(postId => selectPost(state, postId)).toJS();
-}
-
-export function selectPostBySubredditMeta(state, subredditId) {
-  const subreddit = state.get('postsBySubreddit').get(subredditId);
-  const isFetching = subreddit ? subreddit.get('isFetching') : false;
-  const didInvalidate = subreddit ? subreddit.get('didInvalidate') : false;
-  return { isFetching, didInvalidate };
 }
