@@ -1,9 +1,9 @@
 import { createLogic } from 'redux-logic';
 import fetch from 'isomorphic-fetch';
 import { normalize, arrayOf } from 'normalizr';
-import { GET_POSTS } from '../actions/redditActions.js';
-import { PostSchema } from '../schemas/entities.js';
-import { selectPostBySubreddit, selectPostBySubredditMeta } from '../redux/postBySubreddit.js';
+import { GET_POSTS } from '../actions/redditActions';
+import { PostSchema } from '../schemas/entities';
+import { selectPostBySubreddit, selectPostBySubredditMeta } from '../redux/postBySubreddit';
 
 const shouldFetchPost = (state, subreddit) => {
   const posts = selectPostBySubreddit(state, subreddit);
@@ -31,7 +31,7 @@ const apiGetPost = createLogic({
     const { meta: { subreddit } } = action;
     fetch(`http://www.reddit.com/r/${subreddit}.json`)
       .then(response => response.json())
-      .then(json => {
+      .then((json) => {
         const posts = json.data.children.map(child => child.data);
         const normalized = normalize(posts, arrayOf(PostSchema));
         dispatch({ type: GET_POSTS.SUCCESS, payload: normalized, meta: { subreddit } });

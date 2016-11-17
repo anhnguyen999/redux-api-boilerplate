@@ -1,6 +1,6 @@
 import Immutable, { List } from 'immutable';
-import { INVALIDATE_SUBREDDIT, GET_POSTS } from '../actions/redditActions.js';
-import { selectPost } from './entities.js';
+import { INVALIDATE_SUBREDDIT, GET_POSTS } from '../actions/redditActions';
+import { selectPost } from './entities';
 
 const postsInitalState = Immutable.fromJS({
   isFetching: false,
@@ -9,13 +9,16 @@ const postsInitalState = Immutable.fromJS({
 });
 function posts(state = postsInitalState, action) {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
+    case INVALIDATE_SUBREDDIT: {
       return state.merge({ didInvalidate: true });
-    case GET_POSTS.REQUEST:
+    }
+    case GET_POSTS.REQUEST: {
       return state.merge({ isFetching: true, didInvalidate: false });
-    case GET_POSTS.SUCCESS:
+    }
+    case GET_POSTS.SUCCESS: {
       const { result } = action.payload;
       return state.merge({ isFetching: false, didInvalidate: false, items: result });
+    }
     default:
       return state;
   }
@@ -26,10 +29,11 @@ export default function postsBySubreddit(state = mapInitialState, action) {
   switch (action.type) {
     case INVALIDATE_SUBREDDIT:
     case GET_POSTS.REQUEST:
-    case GET_POSTS.SUCCESS:
+    case GET_POSTS.SUCCESS: {
       const { subreddit } = action.meta;
       const updatedSubreddit = posts(state.get(subreddit), action);
       return state.set(subreddit, updatedSubreddit);
+    }
     default:
       return state;
   }

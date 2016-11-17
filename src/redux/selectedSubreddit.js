@@ -1,4 +1,4 @@
-import { SELECT_SUBREDDIT } from '../actions/redditActions.js';
+import { SELECT_SUBREDDIT } from '../actions/redditActions';
 
 export default function selectedSubreddit(state = 'reactjs', action) {
   switch (action.type) {

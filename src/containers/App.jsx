@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router';
 
-export default class App extends Component {
+export default class App extends PureComponent {
   static propTypes = {
-    children: React.PropTypes.object,
+    children: React.PropTypes.node,
   }
+
   render() {
     return (
       <div>
@@ -15,6 +16,6 @@ export default class App extends Component {
         </div>
         {this.props.children}
       </div>
-    )
+    );
   }
 }

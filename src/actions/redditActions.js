@@ -1,4 +1,4 @@
-import { createObjectType } from '../utils/createRequestType.js';
+import { createObjectType } from '../utils/createRequestType';
 
 export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT';
 export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT';

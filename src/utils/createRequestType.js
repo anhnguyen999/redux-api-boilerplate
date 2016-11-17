@@ -6,7 +6,7 @@ const CANCEL = 'CANCEL';
 export function createObjectType(base) {
   const obj = {};
   [REQUEST, SUCCESS, FAILURE, CANCEL]
-    .forEach(type => { obj[type] = `${base}:${type}`; });
+    .forEach((type) => { obj[type] = `${base}:${type}`; });
   return obj;
 };
 

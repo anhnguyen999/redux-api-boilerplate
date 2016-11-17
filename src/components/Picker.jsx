@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-export default class Picker extends Component {
+export default class Picker extends PureComponent {
   static propTypes = {
     options: PropTypes.arrayOf(
       PropTypes.string.isRequired
@@ -8,7 +8,7 @@ export default class Picker extends Component {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
   }
-  
+
   render() {
     const { value, onChange, options } = this.props;
 

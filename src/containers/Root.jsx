@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute } from 'react-router';
-import App from './App.js';
+import App from './App';
 
-import Reddit from '../containers/Reddit.js';
-import FooView from '../layout/FooView.js';
-import BarView from '../layout/BarView.js';
+import Reddit from '../containers/Reddit';
+import FooView from '../layout/FooView';
+import BarView from '../layout/BarView';
 
 /**
  * Component is exported for conditional usage in Root.js
  */
-export default class Root extends Component {
+export default class Root extends PureComponent {
   static propTypes = {
     store: React.PropTypes.object,
     history: React.PropTypes.object,
@@ -27,9 +27,9 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App}>
-            <IndexRoute component={Reddit}/>
-            <Route path="foo" component={FooView}/>
-            <Route path="bar" component={BarView}/>
+            <IndexRoute component={Reddit} />
+            <Route path="foo" component={FooView} />
+            <Route path="bar" component={BarView} />
           </Route>
         </Router>
       </Provider>

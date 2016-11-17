@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux-immutable';
-import entities from './entities.js';
-import postsBySubreddit from './postBySubreddit.js';
-import selectedSubreddit from './selectedSubreddit.js';
-import routing from './routing.js';
+import entities from './entities';
+import postsBySubreddit from './postBySubreddit';
+import selectedSubreddit from './selectedSubreddit';
+import routing from './routing';
+
 /**
  * combineReducers is important to understand. As your app might grow in size
  * and complexity, you will likely begin to split your reducers into separate
