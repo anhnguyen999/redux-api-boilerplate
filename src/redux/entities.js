@@ -1,14 +1,17 @@
-import Immutable from 'immutable';
+export function getPost(state, postId) {
+  return state.entities.post[postId] || {};
+}
 
-const entitiesInitialState = Immutable.fromJS({});
-export default function entities(state = entitiesInitialState, action) {
+function post(state = {}, action) {
   const { payload } = action;
-  if (payload && payload.entities) {
-    return state.mergeDeep(payload.entities);
+  if (payload && payload.entities && payload.entities.post) {
+    return Object.assign({}, state, payload.entities.post);
   }
   return state;
 }
 
-export function getPost(state, postId) {
-  return state.get('entities').get('post').get(postId).toJS() || {};
+export default function entities(state = {}, action) {
+  return {
+    post: post(state.post, action),
+  };
 }

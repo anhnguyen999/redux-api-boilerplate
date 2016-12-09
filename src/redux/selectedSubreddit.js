@@ -1,7 +1,7 @@
 import { SELECT_SUBREDDIT } from '../actions/redditActions';
 
 export function getSelectedSubreddit(state) {
-  return state.get('selectedSubreddit');
+  return state.selectedSubreddit;
 }
 
 export default function selectedSubreddit(state = 'reactjs', action) {

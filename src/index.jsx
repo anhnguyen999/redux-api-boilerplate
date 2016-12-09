@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom';
  */
 import { hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import Immutable from 'immutable';
 import configureStore from './store/configureStore';
 import Root from './containers/Root';
 
@@ -17,11 +16,8 @@ import Root from './containers/Root';
  */
 import './styles/main.scss';
 
-const initalState = Immutable.fromJS({});
-const store = configureStore(initalState);
-const history = syncHistoryWithStore(hashHistory, store, {
-  selectLocationState: state => state.get('routing').toObject()
-});
+const store = configureStore();
+const history = syncHistoryWithStore(hashHistory, store);
 
 ReactDOM.render(
   <Root store={store} history={history} />,

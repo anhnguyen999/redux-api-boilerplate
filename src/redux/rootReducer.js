@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 import entities from './entities';
 import postsBySubreddit from './postBySubreddit';
 import selectedSubreddit from './selectedSubreddit';
-import routing from './routing';
 
 /**
  * combineReducers is important to understand. As your app might grow in size
@@ -22,7 +22,6 @@ const rootReducer = combineReducers({
   entities,
   selectedSubreddit,
   postsBySubreddit,
-  routing,
+  routing: routerReducer,
 });
-
 export default rootReducer;

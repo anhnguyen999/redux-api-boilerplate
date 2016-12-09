@@ -47,7 +47,6 @@
     "webpack-hot-middleware": "^2.13.2"
   },
   "dependencies": {
-    "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "normalizr": "^2.2.1",
     "react": "^15.3.0",
@@ -56,7 +55,6 @@
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.5",
     "redux": "^3.6.0",
-    "redux-immutable": "^3.0.8",
     "redux-logic": "^0.9.3",
     "rxjs": "^5.0.0-rc.2"
   }
