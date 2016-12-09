@@ -1,3 +1,4 @@
+import merge from 'lodash.merge';
 import { INVALIDATE_SUBREDDIT, GET_POSTS } from '../actions/redditActions';
 import { getPost } from './entities';
 
@@ -22,19 +23,19 @@ const postsInitalState = {
 function posts(state = postsInitalState, action) {
   switch (action.type) {
     case INVALIDATE_SUBREDDIT: {
-      return Object.assign({}, state, {
+      return merge({}, state, {
         didInvalidate: true,
       });
     }
     case GET_POSTS.REQUEST: {
-      return Object.assign({}, state, {
+      return merge({}, state, {
         isFetching: true,
         didInvalidate: false,
       });
     }
     case GET_POSTS.SUCCESS: {
       const { result } = action.payload;
-      return Object.assign({}, state, {
+      return merge({}, state, {
         isFetching: false,
         didInvalidate: false,
         items: result,
@@ -51,7 +52,7 @@ export default function postsBySubreddit(state = {}, action) {
     case GET_POSTS.REQUEST:
     case GET_POSTS.SUCCESS: {
       const { subreddit } = action.meta;
-      return Object.assign({}, state, {
+      return merge({}, state, {
         [subreddit]: posts(state[subreddit], action),
       });
     }

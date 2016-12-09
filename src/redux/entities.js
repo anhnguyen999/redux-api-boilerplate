@@ -1,17 +1,13 @@
+import merge from 'lodash.merge';
+
 export function getPost(state, postId) {
   return state.entities.post[postId] || {};
 }
 
-function post(state = {}, action) {
+export default function entities(state = {}, action) {
   const { payload } = action;
-  if (payload && payload.entities && payload.entities.post) {
-    return Object.assign({}, state, payload.entities.post);
+  if (payload && payload.entities) {
+    return merge({}, state, payload.entities);
   }
   return state;
-}
-
-export default function entities(state = {}, action) {
-  return {
-    post: post(state.post, action),
-  };
 }
