@@ -3,7 +3,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import App from './containers/App';
 import Reddit from './containers/Reddit';
-import FooView from './layout/FooView';
+import FormView from './layout/FormView';
 import BarView from './layout/BarView';
 
 /**
@@ -25,7 +25,7 @@ export default class Root extends PureComponent {
       <Router history={history}>
         <Route path="/" component={App}>
           <IndexRoute component={Reddit} />
-          <Route path="foo" component={FooView} />
+          <Route path="form" component={FormView} />
           <Route path="bar" component={BarView} />
         </Route>
       </Router>
