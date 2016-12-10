@@ -3561,13 +3561,13 @@ redux-form@^6.3.2:
     lodash-es "^4.16.6"
     shallowequal "^0.2.2"
 
-redux-logic@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/redux-logic/-/redux-logic-0.9.3.tgz#17569abb2ae39efc8521b91386b957fca3d1ddbe"
+redux-logic@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/redux-logic/-/redux-logic-0.10.2.tgz#d5f0c32863b58f5e38e0f25ede6f4931aa07b341"
   dependencies:
     is-observable "^0.2.0"
     is-promise "^2.1.0"
-    loose-envify "^1.1.0"
+    loose-envify "^1.2.0"
 
 redux@^3.6.0:
   version "3.6.0"
