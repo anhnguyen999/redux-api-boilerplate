@@ -4,14 +4,6 @@
   "rules": {
     "comma-dangle": 0,
     "no-extra-semi": 0,
-    // Allow Immutable.js
-    "new-cap": [2, {
-      "newIsCap": true,
-      "capIsNewExceptions": [
-        "List", "Map", "OrderedMap", "Set", "Stack",
-        "Record", "Seq", "Iterable", "Collection"
-      ]
-    }],
     "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
     "react/forbid-prop-types": [0]
   }
