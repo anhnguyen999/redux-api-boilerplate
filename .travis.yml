@@ -6,7 +6,13 @@ node_js:
   - "6"
 cache:
   yarn: true
-script:
+before_script:
   - yarn run lint
+script:
+  - if [ "$TRAVIS_TAG" = "" ]; then exit 0; fi
+  - TAG=$TRAVIS_TAG
+  - docker-compose build
 after_success:
-  - echo $TRAVIS_BRANCH $TRAVIS_TAG $DOCKER_HUB_EMAIL $DOCKER_HUB_PASS
+  - if [ "$TRAVIS_TAG" = "" ]; then exit 0; fi
+  - docker login -u="$DOCKER_HUB_USER" -p="$DOCKER_HUB_PASS";
+  - docker push vanhtuan/react-api-boilerplate;

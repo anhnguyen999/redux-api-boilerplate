@@ -6,7 +6,7 @@ services:
       context: .
       args:
         port: ${CLIENT_PORT:-3000}
-    image: vanhtuan0409/react-api-boilerplate:${TAG:-latest}
+    image: vanhtuan/redux-api-boilerplate:${TAG:-latest}
     environment:
       NODE_ENV: ${NODE_ENV:-development}
     volumes:
