@@ -10,7 +10,7 @@ before_script:
   - yarn run lint
 script:
   - if [ "$TRAVIS_TAG" = "" ]; then exit 0; fi
-  - TAG=$TRAVIS_TAG
+  - export TAG=$TRAVIS_TAG
   - docker-compose build
 after_success:
   - if [ "$TRAVIS_TAG" = "" ]; then exit 0; fi
