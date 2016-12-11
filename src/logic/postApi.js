@@ -29,7 +29,7 @@ const apiGetPost = createLogic({
   },
   process({ getState, action }, dispatch) {
     const { meta: { subreddit } } = action;
-    fetch(`http://www.reddit.com/r/${subreddit}.json`)
+    fetch(`https://www.reddit.com/r/${subreddit}.json`)
       .then(response => response.json())
       .then((json) => {
         const posts = json.data.children.map(child => child.data);
