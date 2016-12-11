@@ -28,8 +28,7 @@ script:
 after_success:
   - if [ "$TAG" = "" ]; then exit 0; fi
   - docker login -u="$DOCKER_HUB_USER" -p="$DOCKER_HUB_PASS"
-  - docker login -u="$HEROKU_REGISTRY_USER" -p="$HEROKU_REGISTRY_PASS"
-  - echo $HEROKU_REGISTRY_USER $HEROKU_REGISTRY_PASS
+  - docker login -u="$HEROKU_REGISTRY_USER" -p="$HEROKU_REGISTRY_PASS" $HEROKU_REGISTRY
   - docker push $REPO/$APP_NAME:$TAG
   - docker tag $REPO/$APP_NAME:$TAG $HEROKU_REGISTRY/$APP_NAME/web
   - docker push $HEROKU_REGISTRY/$APP_NAME/web
