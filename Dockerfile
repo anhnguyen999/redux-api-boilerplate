@@ -1,11 +1,9 @@
 FROM node:6.9
-ARG port=3000
 
 MAINTAINER tuanvuong <vanhtuan0409@gmail.com>
 
 # Enviroment variable
-ENV APP=/usr/app PORT=$port
-RUN echo $PORT
+ENV APP=/usr/app
 
 # Create working directory
 RUN mkdir -p $APP
@@ -22,5 +20,4 @@ RUN rm -rf node_modules && yarn install && yarn cache clean && npm cache clean &
 ADD . $APP
 RUN yarn run build
 
-EXPOSE $PORT
 CMD yarn run start
