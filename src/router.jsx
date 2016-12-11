@@ -5,6 +5,7 @@ import App from './containers/App';
 import Reddit from './containers/Reddit';
 import FormView from './layout/FormView';
 import BarView from './layout/BarView';
+import NotFound from './layout/NotFound';
 
 /**
  * Component is exported for conditional usage in Root.js
@@ -28,6 +29,7 @@ export default class Root extends PureComponent {
           <Route path="form" component={FormView} />
           <Route path="bar" component={BarView} />
         </Route>
+        <Route path="*" component={NotFound} />
       </Router>
     );
   }
