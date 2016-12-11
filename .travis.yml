@@ -18,9 +18,9 @@ before_install:
 before_script:
   - yarn run lint
 script:
-  - if [ "$TRAVIS_TAG" = "" ]; then exit 0; fi
+  - if [ "$TAG" = "" ]; then exit 0; fi
   - docker-compose build
 after_success:
-  - if [ "$TRAVIS_TAG" = "" ]; then exit 0; fi
-  - docker login -u="$DOCKER_HUB_USER" -p="$DOCKER_HUB_PASS";
-  - docker push vanhtuan/react-api-boilerplate;
+  - if [ "$TAG" = "" ]; then exit 0; fi
+  - docker login -u="$DOCKER_HUB_USER" -p="$DOCKER_HUB_PASS"
+  - docker push vanhtuan/redux-api-boilerplate:$TAG
