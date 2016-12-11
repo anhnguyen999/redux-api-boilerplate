@@ -31,29 +31,42 @@ const warn = (values) => {
   return warnings;
 };
 
-const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+const RenderField = ({ id, input, label, type, meta: { touched, error, warning } }) => (
   <div>
-    <label>{label}</label>
+    <label htmlFor={id}>{label}</label>
     <div>
-      <input {...input} placeholder={label} type={type} />
+      <input id={id} {...input} placeholder={label} type={type} />
       {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
   </div>
 );
+RenderField.propTypes = {
+  id: React.PropTypes.string,
+  input: React.PropTypes.object,
+  label: React.PropTypes.string,
+  type: React.PropTypes.string,
+  meta: React.PropTypes.object,
+};
 
 const SyncValidateForm = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
-      <Field name="username" type="text" component={renderField} label="Username" />
-      <Field name="email" type="text" component={renderField} label="Email" />
-      <Field name="age" type="number" component={renderField} label="Age" />
+      <Field id="username" name="username" type="text" component={RenderField} label="Username" />
+      <Field id="email" name="email" type="text" component={RenderField} label="Email" />
+      <Field id="age" name="age" type="number" component={RenderField} label="Age" />
       <div>
         <button type="submit" disabled={submitting}>Submit</button>
         <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
       </div>
     </form>
   );
+};
+SyncValidateForm.propTypes = {
+  handleSubmit: React.PropTypes.func.isRequired,
+  reset: React.PropTypes.func,
+  pristine: React.PropTypes.bool,
+  submitting: React.PropTypes.bool,
 };
 
 export default reduxForm({

@@ -2,7 +2,7 @@ import { createLogic } from 'redux-logic';
 import fetch from 'isomorphic-fetch';
 import { normalize, arrayOf } from 'normalizr';
 import { GET_POSTS } from '../actions/redditActions';
-import { PostSchema } from '../schemas/entities';
+import PostSchema from '../schemas/post';
 import { getPostBySubreddit, getPostBySubredditMeta } from '../redux/postBySubreddit';
 
 const shouldFetchPost = (state, subreddit) => {

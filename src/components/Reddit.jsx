@@ -51,9 +51,9 @@ export default class Reddit extends PureComponent {
         />
         <p>
           {!isFetching &&
-            <a href='' onClick={this.handleRefreshClick}>
+            <button onClick={this.handleRefreshClick}>
               Refresh
-            </a>
+            </button>
           }
         </p>
         {isFetching && posts.length === 0 &&
