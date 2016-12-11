@@ -30,6 +30,7 @@ if (process.env.NODE_ENV !== 'production') {
   });
 }
 
+console.log(`App is running in ${process.env.NODE_ENV || 'development'} mode`)
 app.listen(port, (err) => {
   if (err) {
     console.log(err);

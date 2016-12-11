@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+  client:
+    build:
+      context: .
+      args:
+        port: ${CLIENT_PORT}
+    image: vanhtuan0409/react-api-boilerplate:${TAG}
+    environment:
+      NODE_ENV: ${NODE_ENV}
+    volumes:
+      - ./src:/usr/app/src:rw
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
