@@ -20,7 +20,7 @@ before_install:
 before_script:
   - docker-compose build
 script:
-  - docker-run $REPO/$APP_NAME:$TAG yarn run lint
+  - docker run $REPO/$APP_NAME:$TAG yarn run lint
 after_success:
   - if [ "$TAG" = "" ]; then exit 0; fi
   - ./scripts/deploy_docker.sh
