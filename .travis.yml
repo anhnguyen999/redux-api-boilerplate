@@ -4,8 +4,6 @@ services:
 language: node_js
 node_js:
   - "6"
-cache:
-  yarn: true
 env:
   DOCKER_COMPOSE_VERSION: 1.9.0
   TAG: $TRAVIS_TAG
@@ -20,15 +18,14 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 before_script:
-  - yarn run lint
-script:
-  - echo $BRANCH
-  - if [ "$TAG" = "" ]; then exit 0; fi
   - docker-compose build
+script:
+  - docker-run $REPO/$APP_NAME:$TAG yarn run lint
 after_success:
   - if [ "$TAG" = "" ]; then exit 0; fi
-  - docker login -u="$DOCKER_HUB_USER" -p="$DOCKER_HUB_PASS"
-  - docker login -u="$HEROKU_REGISTRY_USER" -p="$HEROKU_REGISTRY_PASS" $HEROKU_REGISTRY
-  - docker push $REPO/$APP_NAME:$TAG
-  - docker tag $REPO/$APP_NAME:$TAG $HEROKU_REGISTRY/$APP_NAME/web
-  - docker push $HEROKU_REGISTRY/$APP_NAME/web
+  - ./scripts/deploy_docker.sh
+deploy:
+  provider: script
+  script: ./scripts/deploy_heroku.sh
+  on:
+    branch: heroku

@@ -12,7 +12,7 @@ export default class App extends PureComponent {
         <div className="menu">
           <Link to="/" className="menu-item">Home</Link>
           <Link to="/form" className="menu-item">Form</Link>
-          <Link to="/bar" className="menu-item">Bar</Link>
+          <Link to="/bar" className="menu-item">Version</Link>
         </div>
         {this.props.children}
       </div>

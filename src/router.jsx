@@ -4,7 +4,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import App from './containers/App';
 import Reddit from './containers/Reddit';
 import FormView from './layout/FormView';
-import BarView from './layout/BarView';
+import VersionView from './layout/VersionView';
 import NotFound from './layout/NotFound';
 
 /**
@@ -27,7 +27,7 @@ export default class Root extends PureComponent {
         <Route path="/" component={App}>
           <IndexRoute component={Reddit} />
           <Route path="form" component={FormView} />
-          <Route path="bar" component={BarView} />
+          <Route path="bar" component={VersionView} />
         </Route>
         <Route path="*" component={NotFound} />
       </Router>
