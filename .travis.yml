@@ -21,8 +21,7 @@ before_script:
 script:
   - docker run $REPO/$APP_NAME yarn run lint
 after_success:
-  - if [ "$TRAVIS_TAG" = "" ]; then exit 0; fi
-  - ./scripts/deploy_docker.sh
+  - if [ "$TRAVIS_TAG" != "" ]; then ./scripts/deploy_docker.sh; fi
 deploy:
   provider: script
   script: ./scripts/deploy_heroku.sh
