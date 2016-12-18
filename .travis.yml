@@ -17,6 +17,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 before_script:
   - docker-compose build
+  - chmod -R +x ./scripts
 script:
   - docker run $REPO/$APP_NAME yarn run lint
 after_success:
