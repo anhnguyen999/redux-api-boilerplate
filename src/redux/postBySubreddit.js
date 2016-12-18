@@ -1,4 +1,4 @@
-import merge from 'lodash.merge';
+import merge from 'lodash/merge';
 import { INVALIDATE_SUBREDDIT, GET_POSTS } from '../actions/redditActions';
 import { getPost } from './entities';
 
