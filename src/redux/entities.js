@@ -1,4 +1,4 @@
-import merge from 'lodash.merge';
+import merge from 'lodash/merge';
 
 export function getPost(state, postId) {
   return state.entities.post[postId] || {};
