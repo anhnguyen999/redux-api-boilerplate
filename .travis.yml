@@ -6,8 +6,6 @@ node_js:
   - "6"
 env:
   DOCKER_COMPOSE_VERSION: 1.9.0
-  TAG: $TRAVIS_TAG
-  BRANCH: $TRAVIS_BRANCH
   APP_NAME: redux-api-boilerplate
   REPO: vanhtuan
   HEROKU_REGISTRY: registry.heroku.com
@@ -20,9 +18,9 @@ before_install:
 before_script:
   - docker-compose build
 script:
-  - docker run $REPO/$APP_NAME:$TAG yarn run lint
+  - docker run $REPO/$APP_NAME yarn run lint
 after_success:
-  - if [ "$TAG" = "" ]; then exit 0; fi
+  - if [ "$TRAVIS_TAG" = "" ]; then exit 0; fi
   - ./scripts/deploy_docker.sh
 deploy:
   provider: script
